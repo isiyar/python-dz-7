@@ -103,6 +103,8 @@ if history_file is not None:
 
     fig1 = px.line(
         city_data,
+        x="timestamp",
+        y="temperature",
         title="Температура и скользящее среднее",
     )
     fig1.add_trace(
