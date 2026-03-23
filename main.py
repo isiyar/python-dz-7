@@ -6,7 +6,7 @@ import requests
 import aiohttp
 import asyncio
 import time
-from concurrent.futures import ProcessPoolExecutor
+from concurrent.futures import ThreadPoolExecutor
 
 
 def load_city(df):
@@ -35,7 +35,7 @@ def load_data_seq(df):
 
 def load_data_par(df):
     city_groups = [group.copy() for _, group in df.groupby("city")]
-    with ProcessPoolExecutor() as executor:
+    with ThreadPoolExecutor() as executor:
         results = list(executor.map(load_city, city_groups))
     return pd.concat(results)
 
